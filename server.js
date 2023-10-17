@@ -30,9 +30,13 @@ app.post('/api/students', (req, res) => {
    const index = students.findIndex(student => {
        return student === name
    })
-
+try {
+    noHabloIngles()
+} catch(err){
+    rollbar.warning('function noHabloIngles does not exist')
+}
    try {
-    bobbios()
+    imAStudent()
        if (index === -1 && name !== '') {
            students.push(name)
            res.status(200).send(students)
@@ -42,8 +46,8 @@ app.post('/api/students', (req, res) => {
            res.status(400).send('That student already exists.')
        }
    } catch (err) {
-        rollbar.critical('my bobbios function did not work')
-       console.log('my bobbios function did not work at all')
+    rollbar.critical('function imAStudent is not working')
+       console.log(err)
    }
 })
 
